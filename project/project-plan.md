@@ -20,19 +20,21 @@ This projects analyzes the correlation between population density and air poluti
 <!-- Describe each datasources you plan to use in a section. Use the prefic "DatasourceX" where X is the id of the datasource. -->
 
 ### Datasource1: PopulationDensity
-* Metadata URL: https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/04-kreise.html
-* Data URL: https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/04-kreise.xlsx?__blob=publicationFile
-* Data Type: XLSX
+* Metadata URL: https://www.kaggle.com/datasets/fernandol/countries-of-the-world#
+* Data URL: login needed to download
+* Data Type: csv
+* License: CC0: Public Domain
 
-This datasource gives inside into the population density by "Landkreis"
+This datasource gives inside into the population density by Country
 
 
-### Datasource1: Airpolution
-* Metadata URL: https://www.umweltbundesamt.de/daten/luft/luftdaten/jahresbilanzen/eJxrWpScv9BwUWXqEiMDI2MAMLAFtA==
-* Data URL: https://www.umweltbundesamt.de/api/air_data/v3/annualbalances/csv?component=1&year=2023&lang=de
+### Datasource2: Airpolution
+* Metadata URL: https://public.opendatasoft.com/explore/dataset/openaq/information/?disjunctive.city&disjunctive.location&disjunctive.measurements_parameter&sort=measurements_lastupdated
+* Data URL: https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/openaq/exports/csv?lang=en&timezone=Europe%2FBerlin&use_labels=true&delimiter=%3B
 * Data Type: CSV
+* License: CC BY 4.0
 
-This datasource gives the data from the measuring stations in germany. In this case it is the datasource for particulate matter, but you can get many different values from this datasource for example CO or SO2
+This datasource gives the data from many cities in the world. It includes many different air pollutants, such as CO, NO2, SO2, O3
 ## Work Packages
 
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->

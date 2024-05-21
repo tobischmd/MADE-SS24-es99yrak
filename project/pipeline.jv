@@ -1,0 +1,77 @@
+pipeline PopulationAirPolutionsPipeline {
+
+    
+    block PopulationExtractor oftype LocalFileExtractor {
+        filePath: "./countries of the world.csv";
+    }
+
+    block PopulationTetxtFileInterpreter oftype TextFileInterpreter {}
+
+    block PopulationCSVInterpreter oftype CSVInterpreter {
+        enclosing: '"';
+        delimiter: ",";
+    }
+
+    block PopulationTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "Country" oftype text,
+            "Pop. Density (per sq. mi.)" oftype text,
+        ];
+    }
+
+    block PopulationLoader oftype SQLiteLoader {
+        table: "population";
+        file: "../data/population.sqlite";
+    }
+    
+
+
+    block PolutionExtractor oftype HttpExtractor {
+        url: "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/openaq/exports/csv?lang=en&timezone=Europe%2FBerlin&use_labels=true&delimiter=%3B";
+    }
+
+    block PolutionTetxtFileInterpreter oftype TextFileInterpreter {}
+
+    block PolutionCSVInterpreter oftype CSVInterpreter {
+        enclosing: '';
+        delimiter: ";";
+    }
+
+    block PolutionTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "City" oftype text,
+            "Pollutant" oftype Pollutant,
+            "Country Label" oftype text,
+            "Value" oftype decimal,
+        ];
+    }
+
+    block PolutionLoader oftype SQLiteLoader {
+        table: "polution";
+        file: "../data/population.sqlite";
+    }
+    
+    constraint PollutantAllowlistConstraint oftype AllowlistConstraint {
+        allowlist: ["CO", "NO2", "O3", "SO2"];
+    }
+
+    valuetype Pollutant oftype text {
+        constraints: [PollutantAllowlistConstraint];
+    }
+
+    PolutionExtractor
+        -> PolutionTetxtFileInterpreter
+        -> PolutionCSVInterpreter
+        -> PolutionTableInterpreter
+        -> PolutionLoader;
+     
+
+    PopulationExtractor
+        -> PopulationTetxtFileInterpreter
+        -> PopulationCSVInterpreter
+        -> PopulationTableInterpreter
+        -> PopulationLoader;
+     
+}
