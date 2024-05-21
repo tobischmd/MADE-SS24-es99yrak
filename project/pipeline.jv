@@ -44,7 +44,8 @@ pipeline PopulationAirPolutionsPipeline {
             "City" oftype text,
             "Pollutant" oftype Pollutant,
             "Country Label" oftype text,
-            "Value" oftype decimal,
+            "Unit" oftype Unit,
+            "Value" oftype Value,
         ];
     }
 
@@ -61,6 +62,21 @@ pipeline PopulationAirPolutionsPipeline {
         constraints: [PollutantAllowlistConstraint];
     }
 
+    constraint FilterValue oftype RangeConstraint {
+        lowerBound: 0;
+        lowerBoundInclusive: true;
+    }
+
+    valuetype Value oftype decimal {
+        constraints: [FilterValue];
+    }
+    constraint UnitAllowList oftype AllowlistConstraint {
+        allowlist: ["µg/m³"];
+    }
+
+    valuetype Unit oftype text {
+        constraints: [UnitAllowList];
+    }
     PolutionExtractor
         -> PolutionTetxtFileInterpreter
         -> PolutionCSVInterpreter
