@@ -5,6 +5,37 @@ database = sq.connect(".\\data\\population.sqlite")
 p = database.cursor()
 
 p.execute('''
+          UPDATE polution
+          SET Value = Value * 1154.27
+          WHERE Pollutant = "CO" AND Unit = "ppm";
+          ''')
+
+p.execute('''
+            UPDATE polution
+            SET Value = Value * 1896.04
+            WHERE Pollutant = "O2" AND Unit = "ppm";
+            ''')
+
+p.execute('''
+            UPDATE polution
+            SET Value = Value * 2639.88
+            WHERE Pollutant = "SO2" AND Unit = "ppm";
+            ''')
+
+p.execute('''
+            UPDATE polution
+            SET Value = Value * 1978.05
+            WHERE Pollutant = "O3" AND Unit = "ppm";
+            ''')
+database.commit()
+
+p.execute('''
+          DELETE FROM polution
+          WHERE Value > 1600;
+            ''')
+database.commit()
+
+p.execute('''
           CREATE TABLE finalData (
                 Country TEXT,
                 PolutionType TEXT,
@@ -12,6 +43,9 @@ p.execute('''
                 Density REAL
           );
           ''')
+
+
+
 
 p.execute('''
           WITH PolutionByCountry AS (
@@ -29,3 +63,4 @@ p.execute('''
            p.Country AS Country, p.Pollutant as PolutionType, p.Polution as Polution, p.Density as Density
           FROM JoinedData p
           ''')
+database.commit()

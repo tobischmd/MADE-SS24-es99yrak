@@ -89,7 +89,7 @@ pipeline PopulationAirPolutionsPipeline {
         constraints: [FilterValue];
     }
     constraint UnitAllowList oftype AllowlistConstraint {
-        allowlist: ["µg/m³"];
+        allowlist: ["µg/m³", "ppm"];
     }
 
     valuetype Unit oftype text {
