@@ -2,7 +2,7 @@ pipeline PopulationAirPolutionsPipeline {
 
     
     block PopulationExtractor oftype LocalFileExtractor {
-        filePath: "./countries of the world.csv";
+        filePath: "./project/countries of the world.csv";
     }
 
     block PopulationTetxtFileInterpreter oftype TextFileInterpreter {}
@@ -12,17 +12,30 @@ pipeline PopulationAirPolutionsPipeline {
         delimiter: ",";
     }
 
+    block PopulationColumnDeleter oftype ColumnDeleter {
+        delete: [column B, column C, column D, column F, column G, column H, column I, column J, column K, column L, column M, column N];
+    }
+
     block PopulationTableInterpreter oftype TableInterpreter {
-        header: true;
+        header: false;
         columns: [
             "Country" oftype text,
-            "Pop. Density (per sq. mi.)" oftype text,
+            "Density" oftype Density,
         ];
+    }
+
+    constraint DensityConstraint oftype RangeConstraint {
+        lowerBound: 0;
+        lowerBoundInclusive: true;
+    }
+
+    valuetype Density oftype decimal {
+        constraints: [DensityConstraint];
     }
 
     block PopulationLoader oftype SQLiteLoader {
         table: "population";
-        file: "../data/population.sqlite";
+        file: "./data/population.sqlite";
     }
     
 
@@ -38,10 +51,10 @@ pipeline PopulationAirPolutionsPipeline {
         delimiter: ";";
     }
 
+
     block PolutionTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
-            "City" oftype text,
             "Pollutant" oftype Pollutant,
             "Country Label" oftype text,
             "Unit" oftype Unit,
@@ -51,7 +64,11 @@ pipeline PopulationAirPolutionsPipeline {
 
     block PolutionLoader oftype SQLiteLoader {
         table: "polution";
-        file: "../data/population.sqlite";
+        file: "./data/population.sqlite";
+    }
+
+    constraint nonEmptyConstraint oftype RegexConstraint {
+        regex: /^.+$/;
     }
     
     constraint PollutantAllowlistConstraint oftype AllowlistConstraint {
@@ -64,6 +81,7 @@ pipeline PopulationAirPolutionsPipeline {
 
     constraint FilterValue oftype RangeConstraint {
         lowerBound: 0;
+        upperBound: 3000;
         lowerBoundInclusive: true;
     }
 
@@ -87,6 +105,7 @@ pipeline PopulationAirPolutionsPipeline {
     PopulationExtractor
         -> PopulationTetxtFileInterpreter
         -> PopulationCSVInterpreter
+        -> PopulationColumnDeleter  
         -> PopulationTableInterpreter
         -> PopulationLoader;
      
