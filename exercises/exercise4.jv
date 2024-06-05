@@ -8,6 +8,7 @@ pipeline GPipeline {
     -> GColumnDeleter
     -> GTableInterpreter
     -> GCelsiusToFarhenheitTransformer
+    -> GCelsiusToFahrenheitTransformer2
     -> GLoader;
 
     block GExtractor oftype HttpExtractor {
@@ -62,6 +63,12 @@ pipeline GPipeline {
     block GCelsiusToFarhenheitTransformer oftype TableTransformer {
         inputColumns: ['temperature'];
         outputColumn: 'temperature';
+        use: CelsiusToFahrenheit;
+    }
+
+    block GCelsiusToFahrenheitTransformer2 oftype TableTransformer {
+        inputColumns: ['battery_temperature'];
+        outputColumn: 'battery_temperature';
         use: CelsiusToFahrenheit;
     }
 
