@@ -1,0 +1,72 @@
+pipeline GPipeline {
+
+    GExtractor
+    -> GArchiveInterpreter
+    -> GFilePicker
+    -> GTextFileInterpreter
+    -> GCSVInterpreter
+    -> GColumnDeleter
+    -> GTableInterpreter
+    -> GCelsiusToFarhenheitTransformer
+    -> GLoader;
+
+    block GExtractor oftype HttpExtractor {
+        url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+    }
+
+    block GArchiveInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block GFilePicker oftype FilePicker {
+        path: "/data.csv";
+    }
+
+    block GTextFileInterpreter oftype TextFileInterpreter { }
+
+    block GCSVInterpreter oftype CSVInterpreter {
+        enclosing: '';
+        delimiter: ";";
+    }
+
+    block GColumnDeleter oftype ColumnDeleter {
+        delete: [column F, column G, column H, column I, column K, column L, column M, column N, column O];
+    }
+
+    constraint positiveConstraint oftype RangeConstraint {
+        lowerBound: 0;
+    }
+
+    valuetype positive oftype integer {
+        constraints: [positiveConstraint];
+    }
+
+    block GTableInterpreter oftype TableInterpreter {
+        header: false;
+        columns: [
+            "id" oftype positive,
+            "producer" oftype text,
+            "model" oftype text,
+            "month" oftype integer,
+            "temperature" oftype decimal,
+            "battery_temperature" oftype decimal
+        ];
+    }
+
+    transform CelsiusToFahrenheit {
+        from Celsius oftype decimal;
+        to Fahrenheit oftype decimal;
+        Fahrenheit: (Celsius * 9/5) + 32;
+    }
+
+    block GCelsiusToFarhenheitTransformer oftype TableTransformer {
+        inputColumns: ['temperature'];
+        outputColumn: 'temperature';
+        use: CelsiusToFahrenheit;
+    }
+
+    block GLoader oftype SQLiteLoader {
+        table: "temperatures";
+        file: "./temperatures.sqlite";
+    }
+}
