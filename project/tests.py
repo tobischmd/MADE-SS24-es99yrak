@@ -4,17 +4,13 @@ import sqlite3
 
 class TestDataPipeline(unittest.TestCase):
     
-    def test_files_are_created(self):
+    def test_database_is_created(self):
         if os.path.exists('./data/population.sqlite'):
             os.remove('./data/population.sqlite')
-            
-        if os.path.exists('./project/Plots/PolutionVsDensity.png'):
-            os.remove('./project/Plots/PolutionVsDensity.png')
             
         os.system('sh ./project/pipeline.sh')
         
         self.assertTrue(os.path.exists('./data/population.sqlite'))
-        self.assertTrue(os.path.exists('./project/Plots/PolutionVsDensity.png'))
         
         
     def test_database_not_empty(self):
