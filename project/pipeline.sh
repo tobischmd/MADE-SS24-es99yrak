@@ -1,6 +1,6 @@
 #!/bin/bash
 rm ./data/population.sqlite
-jv -d ./project/pipeline.jv
+jv ./project/pipeline.jv
 cd data
 ls 
 cat population.sqlite
