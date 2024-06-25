@@ -58,3 +58,4 @@ axs[3].set_ylabel('O3 (µg/m³)')
 fig.set_size_inches(7, 7)
 
 plt.savefig('.\\project\\Plots\\PolutionVsDensity.png')
+
