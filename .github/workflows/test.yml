@@ -25,7 +25,9 @@ jobs:
       - name: upgrade pip
         run: "pip install --upgrade pip"
 
-        
+      - name: test working directory
+        run: "ls -la"
+
       - name: Install Dependencies
         run: "pip install -r requirements.txt"
   
