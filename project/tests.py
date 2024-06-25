@@ -26,6 +26,7 @@ class TestDataPipeline(unittest.TestCase):
         self.assertTrue(os.path.exists('./data/population.sqlite'))
         
         conn = sqlite3.connect('./data/population.sqlite')
+        
         cur = conn.cursor()
         
         cur.execute("SELECT COUNT(*) FROM population")

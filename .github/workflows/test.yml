@@ -29,7 +29,7 @@ jobs:
         run: "ls -la"
 
       - name: install distutils
-        run: "sudo apt install python3.12-distutils"
+        run: "sudo apt install python3-distutils"
 
       - name: Install Dependencies
         run: "pip install -r ./project/requirements.txt"
