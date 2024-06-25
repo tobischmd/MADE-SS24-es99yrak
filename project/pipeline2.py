@@ -1,6 +1,6 @@
 import sqlite3 as sq
 
-database = sq.connect(".\\data\\population.sqlite")
+database = sq.connect("./data/population.sqlite")
 
 p = database.cursor()
 
