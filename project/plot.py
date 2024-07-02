@@ -55,6 +55,11 @@ axs[1].set_ylabel('NO2 (µg/m³)')
 axs[2].set_ylabel('SO2 (µg/m³)')
 axs[3].set_ylabel('O3 (µg/m³)')
 
+axs[0].text(200, 0, f'CO: y = {round(mCO, 4)}x + {round(bCO, 2)}', color='r')
+axs[1].text(200, 0, f'NO2: y = {round(mNO2, 4)}x + {round(bNO2, 2)}', color='b')
+axs[2].text(200, 0, f'SO2: y = {round(mSO2, 4)}x + {round(bSO2, 2)}', color='g')
+axs[3].text(200, 0, f'O3: y = {round(mO3, 4)}x + {round(bO3, 2)}', color='y')
+
 fig.set_size_inches(7, 7)
 
 plt.savefig('.\\project\\Plots\\PolutionVsDensity.png')
