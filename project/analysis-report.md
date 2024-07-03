@@ -1,3 +1,11 @@
+---
+papersize: a4
+geometry: margin=2.5cm
+fontsize: 12pt
+header-includes:
+    - \linespread{1.5}
+---
+
 # Analysis Reprt
 
 ## Introduction
@@ -26,7 +34,7 @@ The analysis involved several steps to examine the correlation between populatio
 
 ### Results
 
-The output of executing the pipeline and the plotting script on July the 2nd produced the following plot: 
+The output of executing the pipeline and the plotting script on July the 2nd produced the plot that can be seen in figure 1: 
 
 ![plots](./project/PlotJuly2.png)
 
