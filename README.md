@@ -1,3 +1,6 @@
+# Correlation between population densitiy and air polution
+Air polution is an important problem, because it not only affects the contribution to climate change, but also the health of the environment and the people living in a given area. This projects analyzes the correlation between population density and air polution, by combining both data sets and analysing them. The results can give insights into which air pollutants are more or less effected by the population density.
+
 # Exercise Badges
 
 ![](https://byob.yarr.is/tobischmd/MADE-SS24-es99yrak/score_ex1) ![](https://byob.yarr.is/tobischmd/MADE-SS24-es99yrak/score_ex2) ![](https://byob.yarr.is/tobischmd/MADE-SS24-es99yrak/score_ex3) ![](https://byob.yarr.is/tobischmd/MADE-SS24-es99yrak/score_ex4) ![](https://byob.yarr.is/tobischmd/MADE-SS24-es99yrak/score_ex5)
